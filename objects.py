@@ -24,6 +24,28 @@ class Datacenter(object):
         for line in self._map:
             print("%s: %s" % (len(line), "".join([str(o) for o in line])))
 
+    def isEmpty(self):
+        ret = 0
+        for line in self._map:
+            ret += line.count(0)
+        return ret
+
+    def storeInLine(self, line, server):
+        s = "%0*d" % (server._size, 0)
+        print(s)
+        line_str = "".join([str(o) for o in self._map[line]])
+        pos = line_str.find(s)
+        if pos >= 0:
+            for i in range(0, server._size):
+                if self._map[line][pos + i] != 0:
+                    raise Exception("Euh !!! line(%s), pos(%s): " % (line, pos + i))
+                self._map[line][pos + i] = 2
+            server._x = pos
+            server._y = line
+            return True
+        return False
+
+
 
 
 class Server(object):

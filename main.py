@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from datetime import datetime
 
 from objects import Datacenter, Server, guaranteedCapacity
 
@@ -23,8 +24,14 @@ sort = sorted(servers, key=lambda o: float(o.getPerf()), reverse=True)
 for s in sort:
     print(str(s))
 
-#for
+_round = 3
+while datacenter.isEmpty() > 0 and _round > 0:
+    server = servers[0]
+    for i in range(0, datacenter._rows):
+        print("store in %s: %s" % (i, datacenter.storeInLine(i, server)))
+    _round -= 1
 
+datacenter.showMap()
 #sorted(servers, key=lambda o: o._line)
 
 
