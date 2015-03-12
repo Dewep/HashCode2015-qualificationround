@@ -19,16 +19,9 @@ for i in range(0, M):
 
 
 
-sum1 = 0
-sum2 = 0
-for s in servers:
-    sum1 += int(s._size)
-    sum2 += int(s._power)
-
-print(sum1)
-print(sum2)
-
-
-#for s in servers:
-#    if s.
-#    print()
+with open("output.txt", "w") as text_file:
+    for s in servers:
+        if s._x == -1:
+            print("x", file=text_file)
+        else:
+            print("%d %d %d" % (s._y, s._x, s._group), file=text_file)
