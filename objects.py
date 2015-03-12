@@ -35,6 +35,8 @@ class Server(object):
         self._power = int(power)
         self._line = int(line)
 
+    def __str__(self):
+        return "%s: x(%s), y(%s), group(%s), ratio(%s), power(%s), size(%s)" % (self._line, self._x, self._y, self._group, self.getPerf(), self._power, self._size)
 
     def setPosXY(self, x, y):
         self._x = x
