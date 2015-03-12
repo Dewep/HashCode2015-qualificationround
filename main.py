@@ -62,6 +62,10 @@ datacenter.showMap()
 print(guaranteedCapacity(datacenter, servers))
 
 
+with open("output.csv", "w") as text_file:
+    for s in servers:
+        print(s.csv(), file=text_file)
+
 with open("output.txt", "w") as text_file:
     for s in servers:
         if s._x == -1:
