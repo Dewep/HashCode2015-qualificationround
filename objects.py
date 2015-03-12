@@ -102,3 +102,26 @@ def guaranteedCapacity(datacenter, servers):
         if s._x != -1:
             rows[s._y] = min(rows[s._y], s._power)
     return min(*rows)
+
+
+def groupByGroup(servers):
+    groups = []
+    for s in servers:
+        if s._group != -1:
+            while len(groups) < s._group + 1:
+                groups.append([])
+            groups[s._group].append(s)
+    return groups
+
+
+def getLowestGroup(servers):
+    groups = groupByGroup(servers)
+    lowest_group = -1
+    lowest_value = 999999
+    for i in range(0, len(groups)):
+        value = 0
+        for s in groups[i]:
+            value += s._power
+        if value < lowest_value:
+            lowest_group = i
+    return lowest_group
