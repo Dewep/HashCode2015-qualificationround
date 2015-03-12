@@ -30,6 +30,40 @@ class Datacenter(object):
             ret += line.count(0)
         return ret
 
+    def getLowestLine(self, servers):
+        lines = []
+        for i in range(0, len(self._map)):
+            lines.append(0)
+        for server in servers:
+            if server._y >= 0:
+                lines[server._y] += server._power
+        #print(str(lines))
+        lowest_line = 0
+        lowest_value = lines[0]
+        for i in range(0, len(self._map)):
+            value = lines[i]
+            if value < lowest_value:
+                lowest_line = i
+                lowest_value = value
+        #print(lowest_line)
+        return lowest_line
+
+
+#    def getLowestLine(self):
+#        lowest_line = 0
+#        lowest_value = self._map[0].count(0)
+#        for i in range(0, len(self._map)):
+#            value = self._map[i].count(2)
+#            print("%s:%s" % (i, value))
+#            if value < lowest_value:
+#                lowest_line = i
+#                lowest_value = value
+#        print(lowest_line)
+#        return lowest_line
+#        #return lowest_group
+#        #for line in self._map:
+#        #    ret += line.count(0)
+
     def storeInLine(self, line, server, servers, nb_groups):
         s = "%0*d" % (server._size, 0)
         #print(s)
