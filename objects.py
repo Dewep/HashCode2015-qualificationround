@@ -116,25 +116,23 @@ def groupByGroup(servers, nb_groups):
     return groups
 
 
-#def PowerByGroups(servers):
-#    groups = {}
-#    for
-#    for s in servers:
-#        if s._group != -1:
-#            while len(groups) < s._group + 1:
-#                groups.append([])
-#            groups[s._group].append(s)
-#    return groups
-
-def getLowestGroup(servers, nb_groups):
+def getPowerByGroup(servers, nb_groups):
     groups = groupByGroup(servers, nb_groups)
-    lowest_group = 0
-    lowest_value = 999999
+    powers = []
     for i in range(0, nb_groups):
         value = 0
         for s in groups[i]:
             value += s._power
-        if value < lowest_value:
+        powers.append(value)
+    return powers
+
+
+def getLowestGroup(servers, nb_groups):
+    groups = getPowerByGroup(servers, nb_groups)
+    lowest_group = 0
+    lowest_value = 999999
+    for i in range(0, nb_groups):
+        if groups[i] < lowest_value:
             lowest_group = i
-            lowest_value = value
+            lowest_value = groups[i]
     return lowest_group
