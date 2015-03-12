@@ -12,7 +12,9 @@ class Server(object):
 
 
     def setPosXY(self, x, y):
-        pass
+        self._x = x
+        self._y = y
+        
 
     def getPerf(self):
         return self._power / self._size
