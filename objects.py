@@ -30,7 +30,7 @@ class Datacenter(object):
             ret += line.count(0)
         return ret
 
-    def getLowestLine(self, servers):
+    def getLowestLine(self, servers, exclude):
         lines = []
         for i in range(0, len(self._map)):
             lines.append(0)
@@ -42,7 +42,7 @@ class Datacenter(object):
         lowest_value = lines[0]
         for i in range(0, len(self._map)):
             value = lines[i]
-            if value < lowest_value:
+            if value < lowest_value and i not in exclude:
                 lowest_line = i
                 lowest_value = value
         #print(lowest_line)

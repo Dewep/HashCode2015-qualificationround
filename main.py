@@ -24,17 +24,21 @@ sort = sorted(servers, reverse=True)
 for s in sort:
     print(str(s))
 
-_round = 15000
+_round = 1500
 #_round = 1
 while datacenter.isEmpty() > 0 and _round >= 0:
-    line = datacenter.getLowestLine(servers)
-    j = 0
-    while j < len(sort):
-        if datacenter.storeInLine(line, sort[j], servers, P):
-            del sort[j]
-            break
-        else:
-            j += 1
+    print(_round)
+    exclude = []
+    while len(exclude) < R:
+        line = datacenter.getLowestLine(servers, exclude)
+        exclude.append(line)
+        j = 0
+        while j < len(sort):
+            if datacenter.storeInLine(line, sort[j], servers, P):
+                del sort[j]
+                break
+            else:
+                j += 1
     _round -= 1
     #if j == len(sort):
     #    print("try exhausted in this line")
