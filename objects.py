@@ -60,14 +60,38 @@ class Server(object):
     def __str__(self):
         return "%s: x(%s), y(%s), group(%s), ratio(%s), power(%s), size(%s)" % (self._line, self._x, self._y, self._group, self.getPerf(), self._power, self._size)
 
+    def csv(self):
+        return "%d;%d;%d;%d;%d;%d;%d" % (self._line, self._x, self._y, self._group, self.getPerf(), self._power, self._size)
+
     def setPosXY(self, x, y):
         self._x = x
         self._y = y
 
-
     def getPerf(self):
         return self._power / self._size
 
+    def __cmp__(self, o):
+        if self.getPerf() < o.getPerf():
+            return -1
+        if self.getPerf() > o.getPerf():
+            return 1
+        if self._size > o._size:
+            return -1
+        if self._size < o._size:
+            return 1
+        return 0
+    def __lt__(self, other):
+        return self.__cmp__(other) < 0
+    def __gt__(self, other):
+        return self.__cmp__(other) > 0
+    def __eq__(self, other):
+        return self.__cmp__(other) == 0
+    def __le__(self, other):
+        return self.__cmp__(other) <= 0
+    def __ge__(self, other):
+        return self.__cmp__(other) >= 0
+    def __ne__(self, other):
+        return self.__cmp__(other) != 0
 
 
 def guaranteedCapacity(datacenter, servers):
