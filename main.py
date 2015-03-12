@@ -18,14 +18,10 @@ for i in range(0, M):
     servers.append(Server(i, x, y))
 
 
-sort = sorted(servers, key=lambda o: float(o.getPerf()), reverse=True)
+sort = sorted(servers, reverse=True)
 
 for s in sort:
     print(str(s))
-
-#for
-
-#sorted(servers, key=lambda o: o._line)
 
 
 print(guaranteedCapacity(datacenter, servers))
