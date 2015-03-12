@@ -43,3 +43,14 @@ class Server(object):
 
     def getPerf(self):
         return self._power / self._size
+
+
+
+def guaranteedCapacity(datacenter, servers):
+    rows = []
+    for i in range(0, datacenter._rows):
+        rows.append(999)
+    for s in servers:
+        if s._x != -1:
+            rows[s._y] = min(rows[s._y], s._power)
+    return min(*rows)
