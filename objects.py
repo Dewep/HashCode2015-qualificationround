@@ -11,7 +11,7 @@ class Datacenter(object):
         self._rows = rows
         self._cols = cols
         for i in range(0, rows):
-            self._map.append([0 for i in range(0, 100)])
+            self._map.append([0 for i in range(0, cols)])
 
         print("Rows: %s" % len(self._map))
 
@@ -22,7 +22,7 @@ class Datacenter(object):
     def showMap(self):
         print("lines: %s" % (len(self._map)))
         for line in self._map:
-            print("%s: %s" % (len(line), "".join(line)))
+            print("%s: %s" % (len(line), "".join([str(o) for o in line])))
 
 
 

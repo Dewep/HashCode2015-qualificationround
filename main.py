@@ -8,11 +8,13 @@ servers = []
 datacenter = Datacenter(R, S)
 
 for i in range(0, U):
-    x, y = map(int, input().split())
+    y, x = map(int, input().split())
     datacenter.setAvailability(x, y)
 
+datacenter.showMap()
+
 for i in range(0, M):
-    x, y = map(int, input().split())
+    y, x = map(int, input().split())
     servers.append(Server(i, x, y))
 
 
