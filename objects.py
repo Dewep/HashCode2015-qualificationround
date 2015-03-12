@@ -32,7 +32,7 @@ class Datacenter(object):
 
     def storeInLine(self, line, server):
         s = "%0*d" % (server._size, 0)
-        print(s)
+        #print(s)
         line_str = "".join([str(o) for o in self._map[line]])
         pos = line_str.find(s)
         if pos >= 0:
@@ -42,6 +42,7 @@ class Datacenter(object):
                 self._map[line][pos + i] = 2
             server._x = pos
             server._y = line
+            # attribuer groupe
             return True
         return False
 

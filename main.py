@@ -24,17 +24,27 @@ sort = sorted(servers, reverse=True)
 for s in sort:
     print(str(s))
 
-_round = 3
-while datacenter.isEmpty() > 0 and _round > 0:
-    server = servers[0]
+_round = 1000
+while datacenter.isEmpty() > 0 and _round >= 0:
+
     for i in range(0, datacenter._rows):
-        print("store in %s: %s" % (i, datacenter.storeInLine(i, server)))
+        j = 0
+        if datacenter.storeInLine(i, sort[0]):
+            del sort[j]
+        else:
+            j += 1
+        if j == len(sort):
+            print("try exhausted in this line")
+            continue
+        #print("store in %s: %s" % (i, ))
     _round -= 1
 
 datacenter.showMap()
 #sorted(servers, key=lambda o: o._line)
 
-
+for s in servers:
+    print(str(s))
+datacenter.showMap()
 print(guaranteedCapacity(datacenter, servers))
 
 
