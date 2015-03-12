@@ -24,7 +24,8 @@ sort = sorted(servers, reverse=True)
 for s in sort:
     print(str(s))
 
-_round = 1000
+#_round = 1000
+_round = 1
 while datacenter.isEmpty() > 0 and _round >= 0:
 
     for i in range(0, datacenter._rows):
