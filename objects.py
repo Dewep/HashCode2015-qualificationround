@@ -136,4 +136,5 @@ def getLowestGroup(servers, nb_groups):
             value += s._power
         if value < lowest_value:
             lowest_group = i
+            lowest_value = value
     return lowest_group
