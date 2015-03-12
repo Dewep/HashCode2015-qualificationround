@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
 
+from objects import Datacenter, Server
+
 R, S, U, P, M = map(int, input().split())
 
-indispo = []
 servers = []
+datacenter = Datacenter(R, S)
 
 for i in range(0, U):
     x, y = map(int, input().split())
-    indispo.append((x, y))
+    datacenter.setAvailability(x, y)
 
 for i in range(0, M):
     x, y = map(int, input().split())
-    servers.append((x, y))
+    servers.append(Server(i, x, y))
 
-print(R)
-print(S)
-print(U)
-print(P)
-print(M)
 
-print(indispo)
-print(servers)
 
 sum1 = 0
 sum2 = 0
 for s in servers:
-    sum1 += int(s[0])
-    sum2 += int(s[1])
+    sum1 += int(s._size)
+    sum2 += int(s._power)
 
 print(sum1)
 print(sum2)
+
+
+#for s in servers:
+#    if s.
+#    print()
