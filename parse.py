@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
 
-R, S, U, P, M = input().split()
-R = int(R)
-S = int(S)
-U = int(U)
-P = int(P)
-M = int(M)
+R, S, U, P, M = map(int, input().split())
 
 indispo = []
 servers = []
-map = list()
 
 for i in range(0, U):
-    indispo.append(input().split())
+    x, y = map(int, input().split())
+    indispo.append((x, y))
 
 for i in range(0, M):
-    servers.append(input().split())
+    x, y = map(int, input().split())
+    servers.append((x, y))
 
 print(R)
 print(S)
@@ -25,3 +21,12 @@ print(M)
 
 print(indispo)
 print(servers)
+
+sum1 = 0
+sum2 = 0
+for s in servers:
+    sum1 += int(s[0])
+    sum2 += int(s[1])
+
+print(sum1)
+print(sum2)
