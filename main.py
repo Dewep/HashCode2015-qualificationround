@@ -29,7 +29,10 @@ while datacenter.isEmpty() > 0 and _round >= 0:
 
     for i in range(0, datacenter._rows):
         j = 0
-        if datacenter.storeInLine(i, sort[0]):
+        print(P)
+        #import sys
+        #sys.exit(1)
+        if datacenter.storeInLine(i, sort[0], servers, P):
             del sort[j]
         else:
             j += 1

@@ -30,7 +30,7 @@ class Datacenter(object):
             ret += line.count(0)
         return ret
 
-    def storeInLine(self, line, server):
+    def storeInLine(self, line, server, servers, nb_groups):
         s = "%0*d" % (server._size, 0)
         #print(s)
         line_str = "".join([str(o) for o in self._map[line]])
@@ -42,6 +42,7 @@ class Datacenter(object):
                 self._map[line][pos + i] = 2
             server._x = pos
             server._y = line
+            server._group = getLowestGroup(servers, nb_groups)
             # attribuer groupe
             return True
         return False
@@ -105,21 +106,31 @@ def guaranteedCapacity(datacenter, servers):
     return min(*rows)
 
 
-def groupByGroup(servers):
+def groupByGroup(servers, nb_groups):
     groups = []
+    for i in range(0, nb_groups):
+        groups.append([])
     for s in servers:
         if s._group != -1:
-            while len(groups) < s._group + 1:
-                groups.append([])
             groups[s._group].append(s)
     return groups
 
 
-def getLowestGroup(servers):
-    groups = groupByGroup(servers)
-    lowest_group = -1
+#def PowerByGroups(servers):
+#    groups = {}
+#    for
+#    for s in servers:
+#        if s._group != -1:
+#            while len(groups) < s._group + 1:
+#                groups.append([])
+#            groups[s._group].append(s)
+#    return groups
+
+def getLowestGroup(servers, nb_groups):
+    groups = groupByGroup(servers, nb_groups)
+    lowest_group = 0
     lowest_value = 999999
-    for i in range(0, len(groups)):
+    for i in range(0, nb_groups):
         value = 0
         for s in groups[i]:
             value += s._power
