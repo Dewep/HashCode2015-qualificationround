@@ -76,7 +76,9 @@ class Datacenter(object):
                 self._map[line][pos + i] = 2
             server._x = pos
             server._y = line
-            server._group = getLowestGroup(servers, nb_groups)
+            server._group = getLowestGroup(servers, nb_groups, line)
+            #if server._group == -1:
+            #    server._group = getLowestGroup(servers, nb_groups)
             # attribuer groupe
             return True
         return False
@@ -140,18 +142,18 @@ def guaranteedCapacity(datacenter, servers):
     return min(*rows)
 
 
-def groupByGroup(servers, nb_groups):
+def groupByGroup(servers, nb_groups, line):
     groups = []
     for i in range(0, nb_groups):
         groups.append([])
     for s in servers:
-        if s._group != -1:
+        if s._group != -1 and (line is None or s._y == line):
             groups[s._group].append(s)
     return groups
 
 
-def getPowerByGroup(servers, nb_groups):
-    groups = groupByGroup(servers, nb_groups)
+def getPowerByGroup(servers, nb_groups, line):
+    groups = groupByGroup(servers, nb_groups, line)
     powers = []
     for i in range(0, nb_groups):
         value = 0
@@ -161,12 +163,42 @@ def getPowerByGroup(servers, nb_groups):
     return powers
 
 
-def getLowestGroup(servers, nb_groups):
-    groups = getPowerByGroup(servers, nb_groups)
+def getLowestGroup(servers, nb_groups, line=None, only_in=None):
+    groups = getPowerByGroup(servers, nb_groups, line)
     lowest_group = 0
     lowest_value = 999999
     for i in range(0, nb_groups):
-        if groups[i] < lowest_value:
+        if groups[i] < lowest_value and (not only_in or i in only_in):
             lowest_group = i
             lowest_value = groups[i]
+    equals = []
+    if line:
+        for i in range(0, nb_groups):
+            if groups[i] == lowest_value:
+                equals.append(i)
+        if len(equals) == 1:
+            return equals[0]
+        return getLowestGroup(servers, nb_groups, only_in=equals)
+    return lowest_group
+
+
+def getLowestGroupLine(servers, line, nb_groups):
+    groups = []
+    for i in range(0, nb_groups):
+        groups.append([])
+    for s in servers:
+        if s._group != -1 and s._y == line:
+            groups[s._group].append(s)
+    powers = []
+    for i in range(0, nb_groups):
+        value = 0
+        for s in groups[i]:
+            value += s._power
+        powers.append(value)
+    lowest_group = 0
+    lowest_value = 999999
+    for i in range(0, nb_groups):
+        if powers[i] < lowest_value:
+            lowest_group = i
+            lowest_value = powers[i]
     return lowest_group

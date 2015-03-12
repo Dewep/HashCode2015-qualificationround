@@ -24,7 +24,7 @@ sort = sorted(servers, reverse=True)
 for s in sort:
     print(str(s))
 
-_round = 3000
+_round = 15000
 #_round = 1
 while datacenter.isEmpty() > 0 and _round >= 0:
     line = datacenter.getLowestLine(servers)
