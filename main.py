@@ -14,9 +14,18 @@ for i in range(0, U):
 datacenter.showMap()
 
 for i in range(0, M):
-    y, x = map(int, input().split())
+    x, y = map(int, input().split())
     servers.append(Server(i, x, y))
 
+
+sort = sorted(servers, key=lambda o: float(o.getPerf()), reverse=True)
+
+for s in sort:
+    print(str(s))
+
+#for
+
+#sorted(servers, key=lambda o: o._line)
 
 
 with open("output.txt", "w") as text_file:
